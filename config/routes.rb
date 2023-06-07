@@ -15,15 +15,15 @@ Rails.application.routes.draw do
 
   # ユーザー用
   devise_for :customers, skip: [:passwords], controllers: {
-    registrations: "public/registrations",
-    sessions: "public/sessions"
+    registrations: "customers/registrations",
+    sessions: "customers/sessions"
   }
 
   scope module: :customers do
     root to: 'homes#top'
     get 'about' => 'homes#about'
     get 'search' => 'searches#search'
-    get 'customer/confirm_deleted' => 'users#confirm_deleted', as: 'confirm_deleted'
+    get 'customers/confirm_deleted' => 'users#confirm_deleted', as: 'confirm_deleted'
     resources :customers, only: [:index, :show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
       get 'followings' => 'relationships#followings', as: 'followings'
