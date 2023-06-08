@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # 管理者
-  devise_for :admins, skip: [:registrations, :passwords], controllers: {
+  devise_for :admins, controllers: {
     sessions: "admin/sessions"
   }
 
@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   end
 
   # ユーザー用
-  devise_for :customers, skip: [:passwords], controllers: {
+  devise_for :customers, controllers: {
     registrations: "customers/registrations",
     sessions: "customers/sessions"
   }

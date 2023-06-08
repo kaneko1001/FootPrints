@@ -1,0 +1,14 @@
+<footer class="bg-info text-center text-white pt-3">
+  <div class="container">
+    <div class="row">
+      <div class="mx-auto text-center">
+        <% if admin_signed_in? %>
+          <%= link_to "管理者ページ", admin_root_path, class: "text-white" %>
+        <% else %>
+          <%= link_to "管理者ページ", admin_session_path, class: "text-white" %>
+        <% end %>
+          <p>CopyRight  fight.inc</p>
+      </div>
+    </div>
+  </div>
+</footer>

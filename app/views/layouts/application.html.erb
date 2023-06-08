@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>FootPrints</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,7 +11,13 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="<%= @classname %>">
+    <div class="md-4">
+      <%= render 'layouts/header' %>
+    </div>
     <%= yield %>
+    <div class="fixed-bottom">
+      <%= render 'layouts/footer' %>
+    </div>
   </body>
 </html>
