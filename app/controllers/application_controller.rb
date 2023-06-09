@@ -1,12 +1,11 @@
 class ApplicationController < ActionController::Base
 
-  before_action :background_image
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
-  def background_image
-    if params[:controller] == 'customers/homes' && params[:action] == 'top'
-      @classname = 'top-body'
-    else
-      @classname = 'top-except'
-    end
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
   end
+
 end

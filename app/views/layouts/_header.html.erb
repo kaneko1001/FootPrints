@@ -19,7 +19,7 @@
           <ul class="navbar-nav ml-auto">
             <% if customer_signed_in? %>
               <li class="nav-item">
-                <%= link_to my_page_path, class: 'nav-link text-light' do %>
+                <%= link_to customers_path, class: 'nav-link text-light' do %>
                   <i class="fas fa-user"></i>マイページ
                 <% end %>
               </li>
@@ -39,7 +39,7 @@
                 <% end %>
               </li>
               <li class="nav-item">
-                <%= link_to destroy_customer_session, method: :delete, class: 'nav-link text-light' do %>
+                <%= link_to destroy_customer_session_path, method: :delete, class: 'nav-link text-light' do %>
                   <i class="fas fa-sign-out-alt"></i>ログアウト
                 <% end %>
               </li>

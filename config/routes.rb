@@ -23,7 +23,6 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get 'about' => 'homes#about'
     get 'search' => 'searches#search'
-    get 'customers/confirm_deleted' => 'users#confirm_deleted', as: 'confirm_deleted'
     resources :customers, only: [:index, :show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
       get 'followings' => 'relationships#followings', as: 'followings'
