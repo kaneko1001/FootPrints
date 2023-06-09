@@ -1,0 +1,40 @@
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-lg-10 mx-auto">
+      <div class="card shadow-lg px-3 py-3">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-12 col-sm-2">
+              <img src="img1.jpg" alt="Image 1" class="img-fluid">
+              <p>仮</p>
+            </div>
+            <div class="col-12 col-sm-6 col-md-8">
+              <h5 class="mb-4"><%= @customer.name %></h5>
+              <div class="row">
+                <div class="col-6 col-sm-3">
+                  <p class="mb-0"><%= @customer.followers.count %>フォロワー、一覧を作りたい</p>
+                </div>
+                <div class="col-6 col-sm-3">
+                  <p class="mb-0"><%= @customer.followings.count %>フォロー中</p>
+                </div>
+                <div class="col-6 col-sm-3">
+                  <p class="mb-0"><%= @customer.posts.count %>旅行</p>
+                </div>
+                <div class="col-6 col-sm-3">
+                  <p class="mb-0">
+                    <%= (@customer.posts.sum { |post| (post.return_date - post.departure_date).to_i }).to_s %>累計旅行日数
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <p><%= @customer.introduction %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

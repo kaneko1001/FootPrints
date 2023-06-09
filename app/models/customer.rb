@@ -20,26 +20,20 @@ class Customer < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   # プロフィール写真の設定
-  def get_profile_image(width, height)
-    unless profile_image.attached?
-      file_path = Rails.root.join('app/assets/images/no_userimage.jpeg')
-      profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
-    end
-    profile_image.variant({gravity: :center, resize: "#{width}x#{height}^", crop: "#{width}x#{height}+0+0"}).processed
+  def get_profile_image
+    (profile_image.attached?) ? profile_image : 'no_user_image.jpeg'
   end
 
-  # フォローする時
-  def follow(user)
-    relationships.find_or_create_by(followed_id: user.id)
+  # フォロー関係
+  def follow(customer_id)
+    relationships.create(followed_id: customer_id)
   end
 
-  # フォローを外す時
-  def unfollow(user)
-    relationships.find_by(followed_id: user.id).destroy
+  def unfollow(customer_id)
+    relationships.find_by(followed_id: customer_id).destroy
   end
 
-  # フォローしているのか確認
-  def following?(user)
-    followings.include?(user)
+  def following?(customer)
+    followings.include?(customer)
   end
 end
