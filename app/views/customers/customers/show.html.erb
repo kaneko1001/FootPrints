@@ -5,14 +5,13 @@
         <div class="card-body">
           <div class="row align-items-center">
             <div class="col-12 col-sm-2">
-              <img src="img1.jpg" alt="Image 1" class="img-fluid">
-              <p>仮</p>
+              <%= image_tag @customer.get_profile_image(120, 120) %>
             </div>
             <div class="col-12 col-sm-6 col-md-8">
-              <h5 class="mb-4"><%= @customer.name %></h5>
+              <h3 class="mb-4"><%= @customer.name %></h3>
               <div class="row">
                 <div class="col-6 col-sm-3">
-                  <p class="mb-0"><%= @customer.followers.count %>フォロワー、一覧を作りたい</p>
+                  <p class="mb-0"><%= @customer.followers.count %>フォロワー</p>
                 </div>
                 <div class="col-6 col-sm-3">
                   <p class="mb-0"><%= @customer.followings.count %>フォロー中</p>
@@ -28,10 +27,25 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row mt-4">
             <div class="col-12">
               <p><%= @customer.introduction %></p>
             </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <% if current_customer == @customer %>
+                <%= link_to  edit_customer_path(@customer), class: "btn btn-outline-secondary btn-block" do %>
+                  <i class="fas fa-user-cog"></i>
+                <% end %>
+              <% else %>
+                <% if current_customer.following?(@customer) %>
+                  <%= link_to "フォロー中", customer_relationships_path(customer.id), class:"btn btn-sm btn-primary", method: :delete %>
+                <% else %>
+                  <%= link_to "フォロー", customer_relationships_path(customer.id), class:"btn btn-sm btn-success", method: :post %>
+                <% end %>
+              <% end %>
+              </div>
           </div>
         </div>
       </div>

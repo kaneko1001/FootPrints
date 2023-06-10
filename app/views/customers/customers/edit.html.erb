@@ -1,0 +1,42 @@
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-lg-10 mx-auto">
+      <div class="card shadow-lg px-3 py-3">
+        <div class="card-body">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-12 col-sm-6">
+              <div class="text-center">
+                <%= image_tag @customer.get_profile_image(140, 140), style: "display: block; margin: 0 auto;" %>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="mt-3">
+                <%= form_with model: @customer, local: true do |f| %>
+                  <div class="form-group text-center">
+                    <%= f.label "画像を選択してください", class: "text-muted d-block text-left" %>
+                    <%= f.file_field :profile_image, class: "form-control-file user_image", accept: 'image/*' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <%= form_with model: @customer, local: true do |f| %>
+            <div class="form-group">
+              <%= f.label "名前" %>
+              <%= f.text_field :name, class: "form-control name", placeholder: "名前を入力してください" %>
+            </div>
+            <div class="form-group">
+              <%= f.label "自己紹介" %>
+              <%= f.text_area :introduction, class: "form-control introduction", placeholder: "自己紹介を入力してください", rows: 6 %>
+            </div>
+            <div class="form-group text-center">
+              <%= f.submit "プロフィールの更新", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
