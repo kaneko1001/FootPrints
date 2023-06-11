@@ -1,1 +1,43 @@
-kari
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-lg-9 mx-auto">
+      <div class="card shadow-lg px-3 py-3">
+        <h2 class="col-lg-4 col-md-7 col-sm-12 text-center">投稿一覧</h2>
+      </div>
+      <div class="card shadow-lg px-3 py-3" style="overflow-y: auto; max-height: calc(100vh - 240px);"> <!-- スクロール可能な領域の修正 -->
+        <% @posts.each_with_index do |post, index| %>
+          <div class="card mb-3 h-100 <% if index < @posts.size - 1 %>mb-2<% end %>"> <!-- 各カードにマージンを追加 -->
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-2">
+                  <%= link_to customer_path(post.customer.id) do %>
+                    <%= image_tag post.customer.get_profile_image(50, 50), class: "mt-0 rounded-circle" %>
+                    <h6><%= post.customer.name %></h6>
+                  <% end %>
+                </div>
+                <div class="col-10">
+                  <div class="row">
+                    <% if post.image.attached? %>
+                      <div class="col-3">
+                        <%= image_tag post.image.variant(resize_to_limit: [150, 150]), class: "d-block" %>
+                      </div>
+                    <% end %>
+                    <div class="<%= post.image.attached? ? 'col-9' : 'col-12' %>">
+                      <% if post.content.present? %>
+                        <% if post.content.length > 89 %>
+                          <%= truncate(post.content, length: 89, omission: '...') %>
+                        <% else %>
+                          <%= post.content %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
