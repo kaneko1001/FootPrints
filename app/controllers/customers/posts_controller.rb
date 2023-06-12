@@ -1,7 +1,7 @@
 class Customers::PostsController < ApplicationController
 
   def index
-    @posts = Post.page(params[:page])
+    @posts = Post.all
     @customer = current_customer
   end
 
