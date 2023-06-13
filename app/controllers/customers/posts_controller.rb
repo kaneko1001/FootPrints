@@ -11,6 +11,7 @@ class Customers::PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @customer = Customer.find(@post.customer_id)
   end
 
   def create
@@ -28,7 +29,7 @@ class Customers::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:image, :title, :content, :location, :map_latitude, :map_longitude, :departure_date, :return_date)
+    params.require(:post).permit(:images, :title, :content, :location, :map_latitude, :map_longitude, :departure_date, :return_date)
   end
 
 end

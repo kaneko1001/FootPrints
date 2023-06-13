@@ -19,7 +19,9 @@
                   <div class="row">
                     <% if post.image.attached? %>
                       <div class="col-3">
-                        <%= image_tag post.image.variant(resize_to_limit: [150, 150]), class: "d-block" %>
+                        <%= link_to post_path(post) do %>
+                          <%= image_tag post.image.variant(resize_to_limit: [150, 150]), class: "d-block" %>
+                        <% end %>
                       </div>
                     <% end %>
                     <div class="<%= post.image.attached? ? 'col-9' : 'col-12' %>">
