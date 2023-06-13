@@ -37,6 +37,11 @@ class Customer < ApplicationRecord
     followings.include?(customer)
   end
 
+  # いいね関係
+  def favorited_by?(post)
+    favorites.exists?(post_id: post.id)
+  end
+
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_user_image.jpeg')

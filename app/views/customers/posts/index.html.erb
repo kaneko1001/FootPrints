@@ -20,6 +20,7 @@
                     <% if post.image.attached? %>
                       <div class="col-3">
                         <%= link_to post_path(post) do %>
+                          <h6><%= post.title %></h6>
                           <%= image_tag post.image.variant(resize_to_limit: [150, 150]), class: "d-block" %>
                         <% end %>
                       </div>

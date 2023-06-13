@@ -18,12 +18,24 @@
                   </p>
                 </div>
                 <div class="col-12">
-                  <%= @customer.introduction %>
+                  <%= @post.content %>
+                </div>
+                <div class="col-12">
+                  <% if current_customer.favorited_by?(@post) %>
+                    <%= link_to "いいね解除", post_favorites_path(@post), method: :delete %>
+                  <% else %>
+                    <%= link_to "いいね", post_favorites_path(@post), method: :post %>
+                  <% end %>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <% if @post.image.attached? %>
+          <%= image_tag @post.image.variant(resize_to_limit: [300, 300]), class: "d-block mx-auto mb-3" %>
+        <% end %>
       </div>
     </div>
   </div>
