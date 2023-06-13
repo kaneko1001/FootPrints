@@ -29,8 +29,6 @@ class Customers::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:images, :title, :content, :location, :map_latitude, :map_longitude, :departure_date, :return_date, :image)
+    params.require(:post).permit(:title, :content, :location, :map_latitude, :map_longitude, :departure_date, :return_date, images: [] )
   end
-
-
 end
