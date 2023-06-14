@@ -12,6 +12,20 @@ class Customers::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @customer = Customer.find(@post.customer_id)
+    @post_comment = Comment.new
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(customer_params)
+      redirect_to customer_path(@customer), notice: "編集に成功しました。"
+    else
+      render :edit
+    end
   end
 
   def create
@@ -24,6 +38,13 @@ class Customers::PostsController < ApplicationController
       @posts = Post.all
       render :new
     end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @customer = Customer.find(@post.customer_id)
+    @post.destroy
+    redirect_to customer_path(@customer), notice: "削除に成功しました。"
   end
 
   private

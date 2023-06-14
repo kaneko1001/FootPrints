@@ -6,6 +6,11 @@ class Customers::CustomersController < ApplicationController
 
   def show
     @customer = Customer.find(params[:id])
+    if current_customer
+      @posts = @customer.posts
+    else
+      @posts = []
+    end
   end
 
   def edit

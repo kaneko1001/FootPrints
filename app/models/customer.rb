@@ -19,11 +19,6 @@ class Customer < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
-  # プロフィール写真の設定
-  def get_profile_image
-    (profile_image.attached?) ? profile_image : 'no_user_image.jpeg'
-  end
-
   # フォロー関係
   def follow(customer_id)
     relationships.create(followed_id: customer_id)

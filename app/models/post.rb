@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
 
   has_many_attached :images
+  has_one_attached :profile_image
 
   belongs_to :customer
 
@@ -15,12 +16,14 @@ class Post < ApplicationRecord
       file_path = Rails.root.join('app/assets/images/no_post_image.jpeg')
       image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
-    # 投稿履歴でで正方形で表示
-    if shape == "square"
-      image.variant({gravity: :center, resize: "#{width}x#{height}^", crop: "#{width}x#{height}+0+0"}).processed
-    else
-      image.variant(resize_to_limit: [width, height]).processed
+  end
+
+  def get_profile_image(width, height)
+    unless profile_image.attached?
+      file_path = Rails.root.join('app/assets/images/no_user_image.jpeg')
+      profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
+    profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
   # 旅行期間を計算

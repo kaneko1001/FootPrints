@@ -1,0 +1,39 @@
+<div class="card shadow-lg px-3 py-3" style="overflow-y: auto; max-height: calc(100vh - 240px);">
+  <% @posts.each_with_index do |post, index| %>
+    <div class="card mb-3 h-100 <% if index < @posts.size - 1 %>mb-2<% end %>">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col-2">
+            <%= link_to customer_path(post.customer.id) do %>
+              <%= image_tag post.customer.get_profile_image(50, 50), class: "mt-0 rounded-circle" %>
+              <h6><%= post.customer.name %></h6>
+            <% end %>
+          </div>
+          <div class="col-10">
+            <div class="row">
+              <% if post.images.attached? %>
+                <div class="col-3">
+                  <%= link_to post_path(post) do %>
+                    <h6><%= post.title %></h6>
+                    <% post.images.first(1).each do |image| %>
+                      <%= image_tag image.variant(resize_to_limit: [150, 150]), class: "d-block" %>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+              <div class="<%= post.images.attached? ? 'col-9' : 'col-12' %>">
+                <% if post.content.present? %>
+                  <% if post.content.length > 89 %>
+                    <%= truncate(post.content, length: 89, omission: '...') %>
+                  <% else %>
+                    <%= post.content %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

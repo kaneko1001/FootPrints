@@ -17,18 +17,21 @@
                     <%= @post.formatted_departure_date %> から <%= @post.formatted_return_date %>
                   </p>
                 </div>
-                <div class="col-9">
+                <div class="col-12">
                   <div class="row">
-                    <div class="col-3">
+                    <div class="col-2">
                       <% if current_customer.favorited_by?(@post) %>
                         <%= link_to "<i class='fa-solid fa-heart' style='color: #787878;'></i>いいね".html_safe, post_favorites_path(@post), method: :delete %>
                       <% else %>
                         <%= link_to "<i class='fa-solid fa-heart' style='color: #f70838;'></i> いいね".html_safe, post_favorites_path(@post), method: :post %>
                       <% end %>
                     </div>
-                    <div class="col-6">
+                    <div class="col-10">
                       <% if current_customer == @post.customer %>
-                        <%= link_to "旅行を編集", edit_post_path(@post), class: "btn btn-primary" %>
+                        <div class="btn-group" role="group">
+                          <%= link_to "旅行を編集", edit_post_path(@post), class: "btn btn-primary" %>
+                          <%= link_to "旅行を削除", @post, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+                        </div>
                       <% end %>
                     </div>
                   </div>
@@ -47,7 +50,7 @@
           <% end %>
         <% end %>
       </div>
+      <%= render 'customers/comments/post_comments.html',post_comment: @post_comment, post: @post %>
     </div>
   </div>
-  <%= link_to '戻る', customer_path(current_customer), class: "btn btn-outline-dark mt-5" %>
 </div>

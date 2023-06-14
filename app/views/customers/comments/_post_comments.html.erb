@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-12">
+    <%= form_with model: [post, post_comment] do |f| %>
+      <div class="form-group">
+        <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに", class: "form-control" %>
+      </div>
+      <div class="text-center">
+        <%= f.submit "送信する", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="row mt-4">
+  <div class="col-12">
+    <% if post.comments.any? %>
+      <h4>コメント</h4>
+      <% post.comments.each do |comment| %>
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row align-items-center"> <!-- align-items-centerを追加 -->
+              <div class="col-auto">
+                <%= image_tag(comment.customer.profile_image, class: "profile-image", size: "100x100") %>
+              </div>
+              <div class="col">
+                <h5><%= comment.customer.name %></h5>
+                <p><%= comment.comment %></p>
+                <div class="d-flex align-items-center"> <!-- d-flexとalign-items-centerを追加 -->
+                  <% if current_customer.favorited_by?(post) %>
+                    <%= link_to "<i class='fa-solid fa-heart' style='color: #787878;'></i>いいね".html_safe, post_favorites_path(@post), method: :delete %>
+                  <% else %>
+                    <%= link_to "<i class='fa-solid fa-heart' style='color: #f70838;'></i> いいね".html_safe, post_favorites_path(@post), method: :post %>
+                  <% end %>
+                  <% if current_customer == comment.customer %>
+                    <%= link_to "削除", post_comment_path(post, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger ml-3" %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p>まだコメントはありません。</p>
+    <% end %>
+  </div>
+</div>

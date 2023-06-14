@@ -40,15 +40,20 @@
                 <% end %>
               <% else %>
                 <% if current_customer.following?(@customer) %>
-                  <%= link_to "フォロー中", customer_relationships_path(customer.id), class:"btn btn-sm btn-primary", method: :delete %>
+                  <%= link_to "フォロー中", customer_relationships_path(@customer.id), class:"btn btn-sm btn-primary", method: :delete %>
                 <% else %>
-                  <%= link_to "フォロー", customer_relationships_path(customer.id), class:"btn btn-sm btn-success", method: :post %>
+                  <%= link_to "フォロー", customer_relationships_path(@customer.id), class:"btn btn-sm btn-success", method: :post %>
                 <% end %>
               <% end %>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10 mx-auto">
+      <%= render 'customers/posts/posts_list' , posts: @posts %>
     </div>
   </div>
 </div>
