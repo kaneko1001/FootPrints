@@ -1,5 +1,10 @@
 class Post < ApplicationRecord
 
+  validates :title, presence: true, length: { maximum: 30 }
+  validates :content, presence: false, length: { maximum: 300 }
+  validates :departure_date, presence: true
+  validates :return_date, presence: true
+
   has_many_attached :images
   has_one_attached :profile_image
 

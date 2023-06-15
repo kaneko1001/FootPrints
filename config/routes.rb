@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get 'about' => 'homes#about'
     get 'search' => 'searches#search'
+    get 'check' => 'customers#check'
+    patch 'customers/withdrawal' => 'customers#withdrawal', as: 'customers_withdrawal'
     resources :customers, only: [:index, :show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
       get 'followings' => 'relationships#followings', as: 'followings'

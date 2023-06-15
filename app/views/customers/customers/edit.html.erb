@@ -38,6 +38,9 @@
               <%= f.submit "プロフィールの更新", class: "btn btn-primary" %>
             </div>
           <% end %>
+          <div class="form-group text-right">
+            <%= link_to "退会する", check_path, class: "btn btn-danger" %>
+          </div>
         </div>
       </div>
       <%= link_to '戻る', customer_path(current_customer), class: "btn btn-outline-dark mt-5" %>

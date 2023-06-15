@@ -1,7 +1,10 @@
 class Customers::PostsController < ApplicationController
+  
+  before_action :authenticate_customer!, except: [:index, :show]
+  before_action :is_matching_login_user, only: [:edit, :update]
 
   def index
-    @posts = Post.all
+    @posts = Post.joins(:customer).where(customers: { is_deleted: false })
     @customer = current_customer
   end
 
@@ -12,7 +15,11 @@ class Customers::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @customer = Customer.find(@post.customer_id)
-    @post_comment = Comment.new
+    if @customer.is_deleted
+      redirect_to root_path, notice: "投稿情報は表示できません。"
+    else
+      @post_comment = Comment.new
+    end
   end
 
   def edit
@@ -51,5 +58,13 @@ class Customers::PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :content, :location, :map_latitude, :map_longitude, :departure_date, :return_date, images: [] )
+  end
+  
+  def is_matching_login_user
+    post = Post.find(params[:id])
+    unless post.user_id == current_user.id
+      flash[:alert] = "他ユーザーの投稿編集画面には遷移できません。"
+      redirect_to post_path(post.id)
+    end
   end
 end

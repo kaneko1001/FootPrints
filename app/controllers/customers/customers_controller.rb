@@ -1,15 +1,22 @@
 class Customers::CustomersController < ApplicationController
+  
+  before_action :authenticate_customer!
+  before_action :is_matching_login_user, only: [:edit, :update]
 
   def index
-    @customers = Customer.page(params[:page])
+    @customers = Customer.where(is_deleted: false).page(params[:page])
   end
 
   def show
     @customer = Customer.find(params[:id])
-    if current_customer
-      @posts = @customer.posts
+    if @customer.is_deleted
+      redirect_to root_path, notice: "ユーザの情報は表示できません。"
     else
-      @posts = []
+      if current_customer
+        @posts = @customer.posts
+      else
+        @posts = []
+      end
     end
   end
 
@@ -26,9 +33,25 @@ class Customers::CustomersController < ApplicationController
     end
   end
 
+  def withdrawal
+    @customer = current_customer
+    @customer.update(is_deleted: true)
+    reset_session
+    flash[:notice] = "退会処理を実行いたしました"
+    redirect_to root_path
+  end
+
   private
 
   def customer_params
     params.require(:customer).permit(:name, :profile_image, :introduction, :status)
+  end
+  
+  def is_matching_login_user
+    post = Post.find(params[:id])
+    unless post.user_id == current_user.id
+      flash[:alert] = "他ユーザーの投稿編集画面には遷移できません。"
+      redirect_to post_path(post.id)
+    end
   end
 end
