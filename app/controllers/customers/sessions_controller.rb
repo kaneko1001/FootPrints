@@ -25,7 +25,15 @@ class Customers::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
-  
+
+  def after_sign_in_path_for(resource)
+    customers_path
+  end
+
+  def after_sign_out_path_for(resource)
+    root_path
+  end
+
   def customer_state
     @customer = Customer.find_by(email: params[:customer][:email])
     if @customer

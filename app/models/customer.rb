@@ -54,5 +54,5 @@ class Customer < ApplicationRecord
   def active_for_authentication?
     super && (is_deleted == false)
   end
-
+  
 end

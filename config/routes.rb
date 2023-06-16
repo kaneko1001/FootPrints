@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   # 管理者
-  devise_for :admins, controllers: {
-    sessions: "admin/sessions"
+  devise_for :admin, controllers: {
+    sessions: 'admins/sessions'
   }
 
-  namespace :admin do
-    root to: 'posts#index'
+  namespace :admins do
+    root to: 'customers#index'
     get 'search' => 'searches#search'
     resources :customers, only: [:index, :show, :edit, :update]
     resources :posts, only: [:show, :destroy] do

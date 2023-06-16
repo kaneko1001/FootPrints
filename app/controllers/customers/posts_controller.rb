@@ -1,5 +1,5 @@
 class Customers::PostsController < ApplicationController
-  
+
   before_action :authenticate_customer!, except: [:index, :show]
   before_action :is_matching_login_user, only: [:edit, :update]
 
@@ -59,10 +59,10 @@ class Customers::PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :content, :location, :map_latitude, :map_longitude, :departure_date, :return_date, images: [] )
   end
-  
+
   def is_matching_login_user
     post = Post.find(params[:id])
-    unless post.user_id == current_user.id
+    unless post.customer_id == current_customer.id
       flash[:alert] = "他ユーザーの投稿編集画面には遷移できません。"
       redirect_to post_path(post.id)
     end

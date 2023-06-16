@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-info navbar-fixed-top">
       <div class="container">
         <% if admin_signed_in? %>
-          <%= link_to admin_root_path do %>
+          <%= link_to admins_root_path do %>
             <%= image_tag('logo.png', class: 'logo-image', style: 'width: 200px;') %>
           <% end %>
         <% else %>
@@ -40,6 +40,22 @@
               </li>
               <li class="nav-item">
                 <%= link_to destroy_customer_session_path, method: :delete, class: 'nav-link text-light' do %>
+                  <i class="fas fa-sign-out-alt"></i>ログアウト
+                <% end %>
+              </li>
+            <% elsif admin_signed_in? %>
+              <li class="nav-item">
+                <%= link_to admins_root_path, class: 'nav-link text-light' do %>
+                  <i class="fas fa-plane-departure"></i>投稿一覧
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to  admins_customers_path, class: 'nav-link text-light' do %>
+                  <i class="fas fa-users"></i>ユーザー一覧
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light' do %>
                   <i class="fas fa-sign-out-alt"></i>ログアウト
                 <% end %>
               </li>

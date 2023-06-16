@@ -3,7 +3,7 @@
     <div class="row">
       <div class="mx-auto text-center">
         <% if admin_signed_in? %>
-          <%= link_to "管理者ページ", admin_root_path, class: "text-white" %>
+          <%= link_to "管理者ページ", admins_root_path, class: "text-white" %>
         <% else %>
           <%= link_to "管理者ページ", admin_session_path, class: "text-white" %>
         <% end %>
