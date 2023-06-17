@@ -3,8 +3,6 @@
     <div class="col-lg-10 mx-auto">
       <div class="card shadow-lg px-3 py-3 text-center">
         <h2>投稿詳細</h2>
-        <%= flash[:alert] %>
-        <%= flash[:notice] %>
       </div>
       <div class="card shadow-lg px-3 py-3">
         <div class="card-body">
@@ -21,24 +19,10 @@
                 </div>
                 <div class="col-12">
                   <div class="row">
-                    <div class="col-2">
-                      <% if current_customer.favorited_by?(@post) %>
-                        <%= link_to post_favorites_path(@post), method: :delete do %>
-                          <i class='fa-solid fa-heart' style='color: #f70838;'></i><%= @post.favorites.count %>いいね
-                        <% end %>
-                      <% else %>
-                        <%= link_to post_favorites_path(@post), method: :post do %>
-                          <i class='fa-solid fa-heart' style='color: #787878;'></i><%= @post.favorites.count %>いいね 
-                        <% end %>
-                      <% end %>
-                    </div>
                     <div class="col-10">
-                      <% if current_customer == @post.customer %>
-                        <div class="btn-group" role="group">
-                          <%= link_to "旅行を編集", edit_post_path(@post), class: "btn btn-primary" %>
-                          <%= link_to "旅行を削除", @post, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
-                        </div>
-                      <% end %>
+                      <div class="btn-group" role="group">
+                        <%= link_to "旅行を削除", admins_post_path, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -56,7 +40,7 @@
           <% end %>
         <% end %>
       </div>
-      <%= render 'customers/comments/post_comments.html',post_comment: @post_comment, post: @post %>
+      <%= render 'admins/comments/post_comments',post_comment: @post_comment, post: @post %>
     </div>
   </div>
 </div>

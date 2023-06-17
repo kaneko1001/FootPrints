@@ -45,12 +45,12 @@
               </li>
             <% elsif admin_signed_in? %>
               <li class="nav-item">
-                <%= link_to admins_root_path, class: 'nav-link text-light' do %>
+                <%= link_to admins_posts_path, class: 'nav-link text-light' do %>
                   <i class="fas fa-plane-departure"></i>投稿一覧
                 <% end %>
               </li>
               <li class="nav-item">
-                <%= link_to  admins_customers_path, class: 'nav-link text-light' do %>
+                <%= link_to admins_root_path, class: 'nav-link text-light' do %>
                   <i class="fas fa-users"></i>ユーザー一覧
                 <% end %>
               </li>

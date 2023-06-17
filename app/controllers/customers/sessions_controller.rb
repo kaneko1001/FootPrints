@@ -38,13 +38,13 @@ class Customers::SessionsController < Devise::SessionsController
     @customer = Customer.find_by(email: params[:customer][:email])
     if @customer
       if @customer.valid_password?(params[:customer][:password]) && (@customer.is_deleted == true)
-        flash[:alert] = "退会済みです。再度ご登録をしてご利用ください。"
+        flash[:error] = "退会済みです。再度ご登録をしてご利用ください。"
         redirect_to root_path
       else
-        flash[:notice] = "項目を入力してください"
+        flash[:error] = "項目を入力してください"
       end
     else
-      flash[:notice] = "該当するユーザーが見つかりません"
+      flash[:error] = "該当するユーザーが見つかりません"
     end
   end
 end

@@ -10,7 +10,8 @@ class Customers::CustomersController < ApplicationController
   def show
     @customer = Customer.find(params[:id])
     if @customer.is_deleted
-      redirect_to root_path, notice: "ユーザの情報は表示できません。"
+      redirect_to root_path
+      flash[:notice] = "ユーザの情報は表示できません。"
     else
       if current_customer
         @posts = @customer.posts
@@ -27,7 +28,8 @@ class Customers::CustomersController < ApplicationController
   def update
     @customer = Customer.find(params[:id])
     if @customer.update(customer_params)
-      redirect_to customer_path(@customer), notice: "編集に成功しました。"
+      redirect_to customer_path(@customer)
+      flash[:notice] = "編集に成功しました。"
     else
       render :edit
     end
@@ -51,7 +53,7 @@ class Customers::CustomersController < ApplicationController
     customer = Customer.find(params[:id])
     unless customer.id == current_customer.id
       flash[:alert] = "他ユーザーの投稿編集画面には遷移できません。"
-      redirect_to post_path(customer.id)
+      redirect_to customer_path(customer.id)
     end
   end
 end

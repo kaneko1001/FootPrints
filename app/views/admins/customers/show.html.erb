@@ -1,0 +1,59 @@
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-lg-10 mx-auto">
+      <div class="card shadow-lg px-3 py-3">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-12 col-sm-2">
+              <%= image_tag @customer.get_profile_image(120, 120) %>
+            </div>
+            <div class="col-12 col-sm-6 col-md-8">
+              <div class="d-flex align-items-center">
+                <h3 class="mb-4"><%= @customer.name %>
+                  <% if @customer.is_deleted %>
+                    <button class="btn btn-danger ml-2" disabled>退会</button>
+                  <% else %>
+                    <button class="btn btn-success ml-2" disabled>利用中</button>
+                  <% end %>
+                </h3>
+              </div>
+              <div class="row">
+                <div class="col-6 col-sm-3">
+                  <p class="mb-0"><%= @customer.followers.count %>フォロワー</p>
+                </div>
+                <div class="col-6 col-sm-3">
+                  <p class="mb-0"><%= @customer.followings.count %>フォロー中</p>
+                </div>
+                <div class="col-6 col-sm-3">
+                  <p class="mb-0"><%= @customer.posts.count %>旅行</p>
+                </div>
+                <div class="col-6 col-sm-3">
+                  <p class="mb-0">
+                    <%= (@customer.posts.sum { |post| (post.return_date - post.departure_date).to_i }).to_s %>累計旅行日数
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <p><%= @customer.introduction %></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <%= link_to  edit_admins_customer_path(@customer), class: "btn btn-outline-secondary btn-block" do %>
+                <i class="fas fa-user-cog"></i>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10 mx-auto">
+      <%= render 'admins/posts/posts_list' , posts: @posts %>
+    </div>
+  </div>
+</div>

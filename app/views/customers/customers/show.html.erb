@@ -1,6 +1,8 @@
 <div class="container px-5 px-sm-0">
   <div class="row">
     <div class="col-lg-10 mx-auto">
+      <%= flash[:notice] %>
+      <%= flash[:alert] %>
       <div class="card shadow-lg px-3 py-3">
         <div class="card-body">
           <div class="row align-items-center">
@@ -53,7 +55,7 @@
   </div>
   <div class="row">
     <div class="col-lg-10 mx-auto">
-      <%= render 'customers/posts/posts_list' , posts: @posts %>
+      <%= render 'customers/posts/posts_list', posts: @posts %>
     </div>
   </div>
 </div>

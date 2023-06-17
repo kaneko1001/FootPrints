@@ -16,7 +16,8 @@ class Customers::PostsController < ApplicationController
     @post = Post.find(params[:id])
     @customer = Customer.find(@post.customer_id)
     if @customer.is_deleted
-      redirect_to root_path, notice: "投稿情報は表示できません。"
+      redirect_to root_path
+      flash[:notice] = "投稿情報は表示できません。"
     else
       @post_comment = Comment.new
     end
@@ -28,8 +29,9 @@ class Customers::PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    if @post.update(customer_params)
-      redirect_to customer_path(@customer), notice: "編集に成功しました。"
+    if @post.update(post_params)
+      redirect_to post_path(@post.id)
+      flash[:notice] = "編集に成功しました。"
     else
       render :edit
     end
@@ -51,7 +53,8 @@ class Customers::PostsController < ApplicationController
     @post = Post.find(params[:id])
     @customer = Customer.find(@post.customer_id)
     @post.destroy
-    redirect_to customer_path(@customer), notice: "削除に成功しました。"
+    redirect_to customer_path(@customer)
+    flash[:notice] = "削除に成功しました。"
   end
 
   private

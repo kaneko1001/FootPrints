@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  # 管理者
+  # 管理者ルート
   devise_for :admin, controllers: {
     sessions: 'admins/sessions'
   }
@@ -7,13 +7,13 @@ Rails.application.routes.draw do
   namespace :admins do
     root to: 'customers#index'
     get 'search' => 'searches#search'
-    resources :customers, only: [:index, :show, :edit, :update]
-    resources :posts, only: [:show, :destroy] do
+    resources :customers, only: [:show, :edit, :update]
+    resources :posts, only: [:index, :show, :destroy] do
       resources :comments, only: [:destroy]
     end
   end
 
-  # ユーザー用
+  # ユーザールート
   devise_for :customers, controllers: {
     registrations: "customers/registrations",
     sessions: "customers/sessions"
