@@ -21,18 +21,10 @@
                 </div>
                 <div class="col-12">
                   <div class="row">
-                    <div class="col-2">
-                      <% if current_customer.favorited_by?(@post) %>
-                        <%= link_to post_favorites_path(@post), method: :delete do %>
-                          <i class='fa-solid fa-heart' style='color: #f70838;'></i><%= @post.favorites.count %>いいね
-                        <% end %>
-                      <% else %>
-                        <%= link_to post_favorites_path(@post), method: :post do %>
-                          <i class='fa-solid fa-heart' style='color: #787878;'></i><%= @post.favorites.count %>いいね 
-                        <% end %>
-                      <% end %>
+                    <div class="col-3">
+                      <%= render "customers/favorites/favorite", post: @post %>
                     </div>
-                    <div class="col-10">
+                    <div class="col-9">
                       <% if current_customer == @post.customer %>
                         <div class="btn-group" role="group">
                           <%= link_to "旅行を編集", edit_post_path(@post), class: "btn btn-primary" %>

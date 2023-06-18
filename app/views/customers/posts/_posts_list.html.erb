@@ -10,15 +10,7 @@
               <%= link_to customer_path(post.customer) do %>
                 <%= image_tag post.customer.get_profile_image(60, 60), class: "mt-0 rounded-circle" %>
                 <h6><%= post.customer.name %></h6>
-                <% if current_customer.favorited_by?(post) %>
-                  <%= link_to post_favorites_path(post), method: :delete do %>
-                    <i class='fa-solid fa-heart' style='color: #f70838;'></i><%= post.favorites.count %>いいね
-                  <% end %>
-                <% else %>
-                  <%= link_to post_favorites_path(post), method: :post do %>
-                    <i class='fa-solid fa-heart' style='color: #787878;'></i><%= post.favorites.count %>いいね
-                  <% end %>
-                <% end %>
+                <%= render "customers/favorites/favorite", post: post %>
               <% end %>
             </div>
             <div class="col-10">
