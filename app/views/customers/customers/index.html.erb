@@ -10,14 +10,14 @@
             <div class="card">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-2">
+                  <div class="col-lg-2 col-4">
                     <%= link_to image_tag(customer.get_profile_image(120, 120)), customer_path(customer) %>
                   </div>
-                  <div class="col-8">
+                  <div class="col-lg-8 col-8">
                     <h5><%= link_to customer.name, customer_path(customer) %></h5>
                     <p><%= customer.introduction %></p>
                   </div>
-                  <div class="col-2 d-flex align-items-center">
+                  <div class="col-lg-2 col-12 d-flex align-items-center">
                     <% if current_customer.following?(customer) %>
                       <%= link_to "フォロー中", customer_relationships_path(customer.id), method: :delete %>
                     <% else %>

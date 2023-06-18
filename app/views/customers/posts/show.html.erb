@@ -24,7 +24,7 @@
                     <div class="col-3">
                       <%= render "customers/favorites/favorite", post: @post %>
                     </div>
-                    <div class="col-9">
+                    <div class="col-6">
                       <% if current_customer == @post.customer %>
                         <div class="btn-group" role="group">
                           <%= link_to "旅行を編集", edit_post_path(@post), class: "btn btn-primary" %>
