@@ -48,7 +48,9 @@
           <% end %>
         <% end %>
       </div>
-      <%= render 'customers/comments/post_comments.html',post_comment: @post_comment, post: @post %>
+      <div id="comments">
+        <%= render 'customers/comments/post_comments.html',post_comment: @post_comment, post: @post %>
+      </div>
     </div>
   </div>
 </div>
