@@ -1,5 +1,4 @@
 class Customers::PostsController < ApplicationController
-
   before_action :authenticate_customer!, except: [:index, :show]
   before_action :is_matching_login_user, only: [:edit, :update]
 
@@ -12,6 +11,7 @@ class Customers::PostsController < ApplicationController
     @post = Post.new
   end
 
+
   def show
     @post = Post.find(params[:id])
     @customer = Customer.find(@post.customer_id)
@@ -20,8 +20,23 @@ class Customers::PostsController < ApplicationController
       flash[:notice] = "投稿情報は表示できません。"
     else
       @post_comment = Comment.new
+      @location = @post.location
+      @pins = Post.where.not(id: @post.id).pluck(:location, :title)
     end
   end
+
+
+  # def show
+  #   @post = Post.find(params[:id])
+  #   @customer = Customer.find(@post.customer_id)
+  #   if @customer.is_deleted
+  #     redirect_to root_path
+  #     flash[:notice] = "投稿情報は表示できません。"
+  #   else
+  #     @post_comment = Comment.new
+  #     @location = @post.location
+  #   end
+  # end
 
   def edit
     @post = Post.find(params[:id])
@@ -60,7 +75,7 @@ class Customers::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, :location, :map_latitude, :map_longitude, :departure_date, :return_date, images: [] )
+    params.require(:post).permit(:title, :content, :location, :map_latitude, :map_longitude, :departure_date, :return_date, images: [])
   end
 
   def is_matching_login_user

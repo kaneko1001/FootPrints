@@ -24,6 +24,12 @@
                       <% end %>
                     <% end %>
                   </div>
+                <% else %>
+                  <div class="col-12">
+                    <%= link_to post_path(post) do %>
+                      <h6><%= post.title %></h6>
+                    <% end %>
+                  </div>
                 <% end %>
                 <div class="<%= post.images.attached? ? 'col-md-9 col-12' : 'col-12' %>">
                   <% if post.content.present? %>

@@ -43,13 +43,16 @@
         <% if @post.images.attached? %>
           <% @post.images.each do |image| %>
             <div class="col-4" style="padding-top: 10px; padding-bottom: 10px;">
-              <%= image_tag image, width: 300, height: 200 %>
+              <%= image_tag image.variant(resize: "300x200") %>
             </div>
           <% end %>
         <% end %>
       </div>
+      <div id="map" style="width: 100%; height: 400px;">
+        <%= render 'customers/posts/map' %>
+      </div>
       <div id="comments">
-        <%= render 'customers/comments/post_comments.html',post_comment: @post_comment, post: @post %>
+        <%= render 'customers/comments/post_comments',post_comment: @post_comment, post: @post %>
       </div>
     </div>
   </div>
