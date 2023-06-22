@@ -1,11 +1,16 @@
 <div id="favorite_buttons_<%= post.id %>">
-  <% if current_customer.favorited_by?(post) %>
+  <% if current_customer && current_customer.favorited_by?(post) %>
     <%= link_to post_favorites_path(post), method: :delete, remote: true, data: { turbo_frame: 'favorite_buttons' } do %>
       <i class='fa-solid fa-heart' style='color: #f70838;'></i><%= post.favorites.count %>いいね
     <% end %>
-  <% else %>
+  <% elsif current_customer %>
     <%= link_to post_favorites_path(post), method: :post, remote: true, data: { turbo_frame: 'favorite_buttons' } do %>
-      <i class='fa-solid fa-heart' style='color: #787878;'></i><%= post.favorites.count %>いいね
+      <i class='fa-solid fa-heart'></i><%= post.favorites.count %>いいね
+    <% end %>
+  <% else %>
+    <!-- ログインしていない場合の処理 -->
+    <%= link_to new_customer_session_path do %>
+      ログインしていいねする
     <% end %>
   <% end %>
 </div>
