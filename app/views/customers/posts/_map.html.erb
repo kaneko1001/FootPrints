@@ -1,4 +1,4 @@
-<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY']%>&callback=initMap" async defer></script>
 
 <script>
   function initMap() {
@@ -33,43 +33,3 @@
     initMap();
   });
 </script>
-
-
-
-
-
-
-
-<!--<script>-->
-<!--  function initMap() {-->
-<!--    const mapElement = document.getElementById("map");-->
-<!--    let map = null;-->
-<!--    let marker = null;-->
-
-    <!--// 初期位置（東京）でマップを表示-->
-<!--    const initialLocation = { lat: 35.6895, lng: 139.6917 };-->
-<!--    map = new google.maps.Map(mapElement, {-->
-<!--      center: initialLocation,-->
-<!--      zoom: 10,-->
-<!--    });-->
-
-    <!--// 場所の取得-->
-<!--    const location = "%= @location %>";-->
-
-    <!--// 場所を地理座標に変換-->
-<!--    const geocoder = new google.maps.Geocoder();-->
-<!--    geocoder.geocode({ address: location }, function (results, status) {-->
-<!--      if (status === "OK") {-->
-<!--        const locationLatLng = results[0].geometry.location;-->
-<!--        marker = new google.maps.Marker({-->
-<!--          position: locationLatLng,-->
-<!--          map: map,-->
-<!--        });-->
-<!--        map.setCenter(locationLatLng);-->
-<!--        map.setZoom(15);-->
-<!--      } else {-->
-<!--        console.error("Geocode was not successful for the following reason: " + status);-->
-<!--      }-->
-<!--    });-->
-<!--  }-->
-<!--</script>-->
