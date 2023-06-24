@@ -35,22 +35,30 @@
       <div class="form-group my-2">
         <%= f.label "場所" %>
           <span class="any">任意</span>
-        <%= f.text_field :location, class: "form-control", placeholder: "写真の場所の入力" %>
+        <%= f.text_field :location, class: "form-control", placeholder: "写真の住所、名前を入力" %>
       </div>
       </div>
       <p class="text-muted">写真を選択すると追加のフォームが表示されます。</p>
     </div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", function() {
+      // ページの読み込みが完了したら実行される関数
+      function initialize() {
         const wrapper = document.getElementById("photo-upload-wrapper");
+
+        // すでにボタンが存在する場合は削除する
+        const existingButton = wrapper.querySelector(".btn-primary");
+        if (existingButton) {
+          existingButton.remove();
+        }
+
         const addPhotoButton = document.createElement("button");
         addPhotoButton.innerText = "写真を追加";
         addPhotoButton.classList.add("btn", "btn-primary", "mt-2");
         wrapper.appendChild(addPhotoButton);
 
         addPhotoButton.addEventListener("click", function(event) {
-          event.preventDefault(); // デフォルトの送信動作をキャンセル
+          event.preventDefault();
 
           const photoField = document.createElement("div");
           photoField.classList.add("photo-upload-field");
@@ -68,10 +76,19 @@
           locationField.setAttribute("placeholder", "写真の場所の入力");
           photoField.appendChild(locationField);
 
+          locationField.value = [locationField.value];
+
           wrapper.appendChild(photoField);
         });
-      });
+      }
+
+      // turbolinks:load イベントが発生したら初期化関数を呼び出す
+      document.addEventListener("turbolinks:load", initialize);
+
+      // ページの最初の読み込み時にも初期化関数を呼び出す
+      document.addEventListener("DOMContentLoaded", initialize);
     </script>
+
     <div class="form-group">
       <% if f.object.new_record? %>
         <%= f.submit '旅行を投稿', class: "btn btn-block btn-success mt-5" %>

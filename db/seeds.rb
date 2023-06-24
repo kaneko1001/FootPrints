@@ -13,7 +13,6 @@ Admin.create!(
   password: 'password',
   password_confirmation: 'password'
   )
-
 puts "------------customer create----------------"
 Customer.destroy_all
 10.times do
