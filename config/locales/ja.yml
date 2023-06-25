@@ -9,7 +9,7 @@ ja:
 
     models:
       admin: 管理者
-      user: ユーザー
+      customer: ユーザー
       post: 投稿
       favorite: いいね
       relationship: フォロー

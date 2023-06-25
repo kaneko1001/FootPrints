@@ -55,4 +55,23 @@ class Post < ApplicationRecord
   def formatted_return_date
     return_date.strftime("%Y年%m月%d日")
   end
+
+  # 並び替え機能
+  def self.sort_index(sort)
+    case sort
+    # 投稿の古い順に並び替え
+    when 'old'
+      order(created_at: :asc)
+    # 投稿のいいねが多い順に並び替え
+    when 'favorite_count'
+      left_joins(:favorites).group('posts.id').order('COUNT(favorites.id) DESC')
+    # 投稿のコメントが多い順に並び替え
+    when 'comment_count'
+      left_joins(:comments).group('posts.id').order('COUNT(comments.id) DESC')
+    else
+      # 投稿の新しい順に並び替え
+      order(created_at: :desc)
+    end
+  end
+
 end

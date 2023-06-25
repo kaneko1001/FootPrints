@@ -3,6 +3,20 @@
     <div class="col-lg-9 mx-auto">
       <div class="card shadow-lg px-3 py-3">
         <h2 class="text-center">投稿一覧</h2>
+        <div class="text-end mb-3">
+          <form action="/posts" method="get" class="d-flex justify-content-end">
+            <div class="me-3 mr-2">
+              <label for="sort">並び替え:</label>
+              <select name="sort" id="sort">
+                <option value="new" <%= params[:sort] == 'new' ? 'selected' : '' %>>新しい順</option>
+                <option value="old" <%= params[:sort] == 'old' ? 'selected' : '' %>>古い順</option>
+                <option value="favorite_count" <%= params[:sort] == 'favorite_count' ? 'selected' : '' %>>いいねが多い順</option>
+                <option value="comment_count" <%= params[:sort] == 'comment_count' ? 'selected' : '' %>>コメントが多い順</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-sm btn-primary">適用</button>
+          </form>
+        </div>
       </div>
       <%= render 'posts_list' %>
     </div>
