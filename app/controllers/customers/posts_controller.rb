@@ -62,7 +62,7 @@ class Customers::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, location: [], map_latitude: [], map_longitude: [], departure_date: [], return_date: [], images: [])
+    params.require(:post).permit(:title, :content, :map_latitude, :map_longitude, :departure_date, :return_date, images: [], location:[])
   end
 
   def is_matching_login_user

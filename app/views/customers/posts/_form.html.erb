@@ -35,7 +35,7 @@
       <div class="form-group my-2">
         <%= f.label "場所" %>
           <span class="any">任意</span>
-        <%= f.text_field :location, class: "form-control", placeholder: "写真の住所、名前を入力" %>
+        <%= f.text_field :location, multiple: true, class: "form-control", placeholder: "写真の住所、名前を入力" %>
       </div>
       </div>
       <p class="text-muted">写真を選択すると追加のフォームが表示されます。</p>
@@ -71,7 +71,7 @@
 
           const locationField = document.createElement("input");
           locationField.setAttribute("type", "text");
-          locationField.setAttribute("name", "post[location]");
+          locationField.setAttribute("name", "post[location][]");
           locationField.setAttribute("class", "form-control");
           locationField.setAttribute("placeholder", "写真の場所の入力");
           photoField.appendChild(locationField);
@@ -82,10 +82,7 @@
         });
       }
 
-      // turbolinks:load イベントが発生したら初期化関数を呼び出す
       document.addEventListener("turbolinks:load", initialize);
-
-      // ページの最初の読み込み時にも初期化関数を呼び出す
       document.addEventListener("DOMContentLoaded", initialize);
     </script>
 
