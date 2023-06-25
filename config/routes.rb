@@ -19,6 +19,11 @@ Rails.application.routes.draw do
     sessions: "customers/sessions"
   }
 
+  # ゲストユーザー
+  devise_scope :customer do
+    post "customers/guest_sign_in", to: "customers/sessions#guest_sign_in"
+  end
+
   scope module: :customers do
     root to: 'homes#top'
     get 'about' => 'homes#about'

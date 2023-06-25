@@ -1,7 +1,8 @@
 class Customers::CustomersController < ApplicationController
 
   before_action :authenticate_customer!
-  before_action :is_matching_login_user, only: [:edit, :update]
+  before_action :is_matching_login_customer, only: [:edit, :update]
+  before_action :check_guest_customer, only: [:edit]
 
   def index
     @customers = Customer.where(is_deleted: false)
@@ -49,11 +50,19 @@ class Customers::CustomersController < ApplicationController
     params.require(:customer).permit(:name, :profile_image, :introduction, :status)
   end
 
-  def is_matching_login_user
+  def is_matching_login_customer
     customer = Customer.find(params[:id])
     unless customer.id == current_customer.id
       flash[:alert] = "他ユーザーの投稿編集画面には遷移できません。"
       redirect_to customer_path(customer.id)
+    end
+  end
+
+  def check_guest_customer
+    @customer = Customer.find(params[:id])
+    if @customer.name == "guestuser"
+      flash[:alert] = "ゲストユーザーはアクセスできません。"
+      redirect_to customer_path(current_customer)
     end
   end
 end

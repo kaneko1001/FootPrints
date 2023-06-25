@@ -34,6 +34,15 @@ class Customers::SessionsController < Devise::SessionsController
     root_path
   end
 
+
+  # ゲストユーザーログイン用アクション
+  def guest_sign_in
+    customer = Customer.guest
+    sign_in customer
+    redirect_to customer_path(customer), notice: 'guestuserでログインしました。'
+  end
+
+  # 在籍状況ステータスが"退会"
   def customer_state
     @customer = Customer.find_by(email: params[:customer][:email])
     if @customer
