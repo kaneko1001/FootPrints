@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-6 col-sm-3">
                   <p class="mb-0">
-                    <%= (@customer.posts.sum { |post| (post.return_date - post.departure_date).to_i }).to_s %>累計旅行日数
+                    <%= (@customer.posts.sum { |post| (post.return_date - post.departure_date).to_i + 1 }).to_s %>累計旅行日数
                   </p>
                 </div>
               </div>

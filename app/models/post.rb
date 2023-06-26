@@ -21,6 +21,7 @@ class Post < ApplicationRecord
       file_path = Rails.root.join('app/assets/images/no_post_image.jpeg')
       image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
+    image.variant(resize_to_fill: [width, height]).processed
   end
 
   def get_profile_image(width, height)
@@ -33,7 +34,7 @@ class Post < ApplicationRecord
 
   # 旅行期間を計算
   def trip_duration
-    days = (return_date - departure_date).to_i
+    days = (return_date - departure_date).to_i + 1
     years = days / 365
     months = (days % 365) / 30
     remaining_days = (days % 365) % 30
@@ -45,7 +46,6 @@ class Post < ApplicationRecord
       remaining_days: remaining_days
     }
   end
-
   # 出発日
   def formatted_departure_date
     departure_date.strftime("%Y年%m月%d日")
