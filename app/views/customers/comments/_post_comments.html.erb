@@ -30,17 +30,20 @@
     <% end %>
   </div>
 </div>
-<div class="row">
-  <div class="col-12">
-    <div id="post-comments">
-      <%= form_with model: [@post, Comment.new], local: false do |f| %>
-        <div class="form-group">
-          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに", class: "form-control" %>
-        </div>
-        <div class="text-center">
-          <%= f.submit "送信する", class: "btn btn-primary" %>
-        </div>
-      <% end %>
+
+<% if customer_signed_in? %>
+  <div class="row">
+    <div class="col-12">
+      <div id="post-comments">
+        <%= form_with model: [@post, Comment.new], local: false do |f| %>
+          <div class="form-group">
+            <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに", class: "form-control" %>
+          </div>
+          <div class="text-center">
+            <%= f.submit "送信する", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>

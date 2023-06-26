@@ -18,7 +18,7 @@
                 <% if post.images.attached? %>
                   <div class="col-md-3 col-12">
                     <%= link_to post_path(post) do %>
-                      <h6><%= post.title %></h6>
+                      <h6><%= truncate(post.title, length: 9, omission: '...') %></h6>
                       <% post.images.first(1).each do |image| %>
                         <%= image_tag image.variant(resize_to_limit: [150, 150]), class: "d-block" %>
                       <% end %>
@@ -27,7 +27,7 @@
                 <% else %>
                   <div class="col-12">
                     <%= link_to post_path(post) do %>
-                      <h6><%= post.title %></h6>
+                      <h6><%= truncate(post.title, length: 10, omission: '...') %></h6>
                     <% end %>
                   </div>
                 <% end %>
