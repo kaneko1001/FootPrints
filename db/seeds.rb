@@ -12,7 +12,7 @@ Admin.create!(
   email: 'admin@example.com',
   password: 'password',
   password_confirmation: 'password'
-  )
+)
 
 puts "------------customer create----------------"
 Customer.destroy_all
@@ -75,5 +75,13 @@ Post.create!(
       content: '日帰りで、横浜赤レンガ倉庫に行ってきました。ライトアップされていてとてもきれいでした',
       customer_id: customers[2].id
     }
+  ]
+)
+
+puts "------------Comment create----------------"
+Comment.create!(
+  [
+    { customer_id: customers[0].id, post_id: Post.second.id, comment: 'とても綺麗ですね！' },
+    { customer_id: customers[1].id, post_id: Post.first.id, comment: '何杯食べれたのですか？' }
   ]
 )
