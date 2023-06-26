@@ -53,8 +53,8 @@ Post.create!(
       ],
       location: [
         { name: '北海道青い池' },
-        { name: '旧本庁舎' },
-        { name: 'JRタワー' }
+        { name: '北海道庁赤レンガ庁舎' },
+        { name: 'クラーク博士像' }
       ],
       departure_date: Date.new(2023, 5, 25),
       return_date: Date.new(2023, 6, 10),
