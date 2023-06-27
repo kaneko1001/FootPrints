@@ -4,7 +4,40 @@
       <div class="card shadow-lg px-3 py-3 text-center">
         <h2>フォロー一覧</h2>
       </div>
-      <%= render 'follow', customers: @customers %>
+      <div class="card shadow-lg px-3 py-3">
+        <% if @customers.empty? %>
+          <p>まだフォローをしていません。</p>
+        <% else %>
+          <% @customers.each do |customer| %>
+            <% unless customer == current_customer %>
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-2 col-4">
+                      <%= link_to image_tag(customer.get_profile_image(120, 120)), customer_path(customer) %>
+                    </div>
+                    <div class="col-lg-8 col-8">
+                      <h5><%= link_to customer.name, customer_path(customer) %></h5>
+                      <% if customer.introduction.present? %>
+                        <p><%= customer.introduction %></p>
+                      <% else %>
+                        <p>自己紹介文はありません。</p>
+                      <% end %>
+                    </div>
+                    <div class="col-lg-2 col-12 d-flex align-items-center">
+                      <% if current_customer.following?(customer) %>
+                        <%= link_to "フォロー中", customer_relationships_path(customer.id), method: :delete %>
+                      <% else %>
+                        <%= link_to "フォロー", customer_relationships_path(customer.id), method: :post %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
