@@ -3,7 +3,7 @@ class Customers::PostsController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
 
   def index
-    @posts = Post.joins(:customer).where(customers: { is_deleted: false }).sort_index(params[:sort])
+    @posts = Post.joins(:customer).where(customers: { is_deleted: false }).sort_index(params[:sort]).page(params[:page])
     @customer = current_customer
   end
 

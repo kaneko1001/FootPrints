@@ -1,5 +1,5 @@
 class Admins::CustomersController < ApplicationController
-  
+
   before_action :authenticate_admin!
 
   def index
@@ -8,7 +8,7 @@ class Admins::CustomersController < ApplicationController
 
   def show
     @customer = Customer.find(params[:id])
-    @posts = @customer.posts
+    @posts = @customer.posts.page(params[:page])
   end
 
   def edit

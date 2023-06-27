@@ -3,7 +3,7 @@ class Admins::PostsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @posts = Post.all
+    @posts = Post.page(params[:page])
     @customer = current_customer
   end
 

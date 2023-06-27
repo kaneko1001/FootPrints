@@ -5,7 +5,7 @@ class Customers::CustomersController < ApplicationController
   before_action :check_guest_customer, only: [:edit]
 
   def index
-    @customers = Customer.where(is_deleted: false)
+    @customers = Customer.where(is_deleted: false).page(params[:page])
   end
 
   def show
@@ -15,7 +15,7 @@ class Customers::CustomersController < ApplicationController
       flash[:notice] = "ユーザの情報は表示できません。"
     else
       if current_customer
-        @posts = @customer.posts
+        @posts = @customer.posts.page(params[:page]).per(5)
       else
         @posts = []
       end
