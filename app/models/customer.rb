@@ -63,4 +63,21 @@ class Customer < ApplicationRecord
     end
   end
 
+  # 検索機能
+  def self.search_for(content)
+    if content.present?
+      where('name LIKE ?', "%#{content}%").order(created_at: :desc)
+    else
+      order(created_at: :desc)
+    end
+  end
+
+  def self.search_active_customers(content)
+    where(is_deleted: false).search_for(content)
+  end
+
+  def self.search_all_customers(content)
+    search_for(content)
+  end
+
 end
