@@ -2,12 +2,14 @@
   <div class="container">
     <div class="row">
       <div class="mx-auto text-center">
-        <% if admin_signed_in? %>
-          <%= link_to "管理者ページ", admins_root_path, class: "text-white" %>
-        <% else %>
-          <%= link_to "管理者ページ", admin_session_path, class: "text-white" %>
+        <% unless customer_signed_in? %>
+          <% if admin_signed_in? %>
+            <%= link_to "管理者ページ", admins_root_path, class: "text-white" %>
+          <% else %>
+            <%= link_to "管理者ページ", admin_session_path, class: "text-white" %>
+          <% end %>
         <% end %>
-          <p>CopyRight  fight.inc</p>
+        <p>CopyRight  fight.inc</p>
       </div>
     </div>
   </div>
