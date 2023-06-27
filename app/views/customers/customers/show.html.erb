@@ -10,21 +10,33 @@
               <%= image_tag @customer.get_profile_image(120, 120) %>
             </div>
             <div class="col-12 col-sm-6 col-md-8">
-              <h3 class="mb-4"><%= @customer.name %></h3>
-              <div class="row">
-                <div class="col-sm-6 col-md-3">
-                  <p class="mb-0"><%= link_to customer_followers_path(@customer) do %><%= @customer.followers.count %>フォロワー<% end %></p>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                  <p class="mb-0"><%= link_to customer_followings_path(@customer) do %><%= @customer.followings.count %>フォロー中<% end %></p>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                  <p class="mb-0"><%= @customer.posts.count %>旅行</p>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                  <p class="mb-0">
-                    <%= (@customer.posts.sum { |post| (post.return_date - post.departure_date).to_i + 1 }).to_s %>累計旅行日数
+              <h3 class="mb-4 customer-name"><%= @customer.name %></h3>
+              <div class="travel-info">
+                <div class="travel-info__item travel-info__item--followers">
+                  <p class="travel-info__value">
+                    <%= link_to customer_followers_path(@customer) do %>
+                      <%= @customer.followers.count %>
+                    <% end %>
                   </p>
+                  <p class="travel-info__label">フォロワー</p>
+                </div>
+                <div class="travel-info__item travel-info__item--followings">
+                  <p class="travel-info__value">
+                    <%= link_to customer_followings_path(@customer) do %>
+                      <%= @customer.followings.count %>
+                    <% end %>
+                  </p>
+                  <p class="travel-info__label">フォロー中</p>
+                </div>
+                <div class="travel-info__item travel-info__item--trips">
+                  <p class="travel-info__value"><%= @customer.posts.count %></p>
+                  <p class="travel-info__label">旅行</p>
+                </div>
+                <div class="travel-info__item travel-info__item--total-days">
+                  <p class="travel-info__value">
+                    <%= (@customer.posts.sum { |post| (post.return_date - post.departure_date).to_i + 1 }).to_s %>
+                  </p>
+                  <p class="travel-info__label">累計旅行日数</p>
                 </div>
               </div>
             </div>
@@ -38,7 +50,7 @@
                   <p>自己紹介文はありません</p>
                 <% end %>
               <% else %>
-                ゲストユーザーです。
+                <p>ゲストユーザーです。</p>
               <% end %>
             </div>
           </div>
@@ -69,3 +81,43 @@
     </div>
   </div>
 </div>
+
+<style>
+
+  .travel-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .travel-info__item {
+    flex: 0 0 25%;
+    text-align: center;
+  }
+
+  .travel-info__value {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .travel-info__label {
+    font-size: 14px;
+    color: #888;
+  }
+
+  .travel-info__item--trips {
+    border-right: 1px solid #888;
+  }
+
+  .travel-info__item--total-days {
+    border-left: 1px solid #888;
+  }
+
+  .customer-name {
+    margin-left: 10px;
+  }
+
+</style>
+
