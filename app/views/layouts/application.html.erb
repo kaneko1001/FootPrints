@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>FootPrints</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -12,7 +12,7 @@
   </head>
 
   <body class="<%= @classname %>">
-    <div class="md-4">
+    <div class="md-8">
       <%= render 'layouts/header' %>
     </div>
     <%= yield %>
@@ -22,9 +22,14 @@
   </body>
 </html>
 
-<<style>
+<style>
   body {
     padding-bottom: 120px;
     background-image: url(<%= asset_path('aozora.jpg') %>);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+    margin: 0;
+    height: 100vh;
   }
 </style>
