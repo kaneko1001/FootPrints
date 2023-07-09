@@ -42,16 +42,31 @@
     </div>
 
     <script>
-      // ページの読み込みが完了したら実行される関数
+      // 画像のプレビュー表示
+      function readURL(input) {
+        if (input.files && input.files.length > 0) {
+          const wrapper = input.closest(".photo-upload-field");
+          const previewContainer = wrapper.querySelector(".image-preview-container");
+
+          for (let i = 0; i < input.files.length; i++) {
+            const reader = new FileReader();
+            const imagePreview = document.createElement("img");
+            imagePreview.setAttribute("class", "image-preview");
+
+            reader.onload = function(e) {
+              imagePreview.setAttribute("src", e.target.result);
+              previewContainer.appendChild(imagePreview);
+            };
+
+            reader.readAsDataURL(input.files[i]);
+          }
+        }
+      }
+
       function initialize() {
         const wrapper = document.getElementById("photo-upload-wrapper");
 
-        // すでにボタンが存在する場合は削除する
-        const existingButton = wrapper.querySelector(".btn-primary");
-        if (existingButton) {
-          existingButton.remove();
-        }
-
+        // "写真を追加"ボタンの作成と追加
         const addPhotoButton = document.createElement("button");
         addPhotoButton.innerText = "写真を追加";
         addPhotoButton.classList.add("btn", "btn-primary", "mt-2");
@@ -60,6 +75,7 @@
         addPhotoButton.addEventListener("click", function(event) {
           event.preventDefault();
 
+          // 写真フィールドの作成と追加
           const photoField = document.createElement("div");
           photoField.classList.add("photo-upload-field");
           const fileField = document.createElement("input");
@@ -69,6 +85,7 @@
           fileField.setAttribute("multiple", true);
           photoField.appendChild(fileField);
 
+          // 位置情報フィールドの作成と追加
           const locationField = document.createElement("input");
           locationField.setAttribute("type", "text");
           locationField.setAttribute("name", "post[location][]");
@@ -76,14 +93,30 @@
           locationField.setAttribute("placeholder", "写真の場所の入力");
           photoField.appendChild(locationField);
 
-          locationField.value = [locationField.value];
+          // プレビューのコンテナ要素を作成して追加
+          const previewContainer = document.createElement("div");
+          previewContainer.classList.add("image-preview-container");
+          photoField.appendChild(previewContainer);
 
           wrapper.appendChild(photoField);
+
+          fileField.addEventListener("change", function() {
+            readURL(this);
+          });
         });
       }
 
-      document.addEventListener("turbolinks:load", initialize);
-      document.addEventListener("DOMContentLoaded", initialize);
+      document.addEventListener("turbolinks:load", function() {
+        const wrapper = document.getElementById("photo-upload-wrapper");
+
+        // すでにボタンが存在する場合は削除する
+        const existingButton = wrapper.querySelector(".btn-primary");
+        if (existingButton) {
+          existingButton.remove();
+        }
+
+        initialize();
+      });
     </script>
 
     <div class="form-group">
@@ -113,5 +146,16 @@
 
   .photo-upload-field {
     margin: 10px 0;
+  }
+
+  .image-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .image-preview {
+    max-width: 200px;
+    margin: 5px;
   }
 </style>
