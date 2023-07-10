@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     get 'about' => 'homes#about'
     get 'search' => 'searches#search'
     get 'check' => 'customers#check'
+    get 'customers/:id/report' => 'customers#report', as: 'customer_report'
     patch 'customers/withdrawal' => 'customers#withdrawal', as: 'customers_withdrawal'
     resources :customers, only: [:index, :show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
@@ -37,7 +38,6 @@ Rails.application.routes.draw do
     end
     resources :posts do
       get :favorites, on: :collection
-      get 'report' => 'posts#report'
       resource :favorites, only: [:create, :destroy]
       resources :comments, only: [:create, :destroy]
     end
