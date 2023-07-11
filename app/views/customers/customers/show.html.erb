@@ -29,46 +29,30 @@
                   <p class="travel-info__label">フォロー中</p>
                 </div>
                 <div class="travel-info__item travel-info__item--trips">
-                  <p class="travel-info__value"><%= @customer.posts.count %></p>
+                  <p class="travel-info__value">
+                    <% if current_customer == @customer %>
+                      <%= link_to customer_report_path do %>
+                        <%= @customer.posts.count %>
+                      <% end %>
+                    <% else %>
+                      <%= @customer.posts.count %>
+                    <% end %>
+                  </p>
                   <p class="travel-info__label">旅行</p>
                 </div>
                 <div class="travel-info__item travel-info__item--total-days">
                   <p class="travel-info__value">
-                    <%= (@customer.posts.sum { |post| (post.return_date - post.departure_date).to_i + 1 }).to_s %>
+                    <% if current_customer == @customer %>
+                      <%= link_to customer_report_path do %>
+                        <%= (@customer.posts.sum { |post| (post.return_date - post.departure_date).to_i + 1 }).to_s %>
+                      <% end %>
+                    <% else %>
+                      <%= (@customer.posts.sum { |post| (post.return_date - post.departure_date).to_i + 1 }).to_s %>
+                    <% end %>
                   </p>
                   <p class="travel-info__label">累計旅行日数</p>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="row mt-4">
-            <div class="col-12">
-              <% if @customer.name != "guestuser" %>
-                <% if @customer.introduction.present? %>
-                  <p><%= @customer.introduction %></p>
-                <% else %>
-                  <p>自己紹介文はありません</p>
-                <% end %>
-              <% else %>
-                <p>ゲストユーザーです。</p>
-              <% end %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <% if current_customer == @customer && @customer.name != "guestuser" %>
-                <%= link_to edit_customer_path(@customer), class: "btn btn-outline-secondary btn-block" do %>
-                  <i class="fas fa-user-cog"></i>
-                <% end %>
-              <% else %>
-                <% if @customer.name != "guestuser" %>
-                  <% if current_customer.following?(@customer) %>
-                    <%= link_to "フォロー中", customer_relationships_path(@customer.id), class: "btn btn-sm btn-primary", method: :delete %>
-                  <% else %>
-                    <%= link_to "フォロー", customer_relationships_path(@customer.id), class: "btn btn-sm btn-success", method: :post %>
-                  <% end %>
-                <% end %>
-              <% end %>
             </div>
           </div>
         </div>
@@ -83,7 +67,6 @@
 </div>
 
 <style>
-
   .travel-info {
     display: flex;
     flex-wrap: wrap;
@@ -118,6 +101,4 @@
   .customer-name {
     margin-left: 10px;
   }
-
 </style>
-

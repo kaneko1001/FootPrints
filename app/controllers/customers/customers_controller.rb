@@ -1,7 +1,7 @@
 class Customers::CustomersController < ApplicationController
 
   before_action :authenticate_customer!
-  before_action :is_matching_login_customer, only: [:edit, :update]
+  before_action :is_matching_login_customer, only: [:edit, :update, :report]
   before_action :check_guest_customer, only: [:edit]
 
   def index
@@ -20,6 +20,10 @@ class Customers::CustomersController < ApplicationController
         @posts = []
       end
     end
+  end
+
+  def report
+
   end
 
   def edit
