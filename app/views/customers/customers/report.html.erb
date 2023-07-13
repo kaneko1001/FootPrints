@@ -5,8 +5,211 @@
         <h2 class="text-center">トラベルレポート</h2>
       </div>
       <div class="card shadow-lg px-3 py-3">
-
+        <div class="travel-info">
+          <div class="travel-info_item travel-info_item-trips">
+            <p class="travel-info_value">
+              <%= @customer.posts.count %>
+            </p>
+            <p class="travel-info_label">旅行</p>
+          </div>
+          <div class="travel-info_item travel-info_item-total-days">
+            <p class="travel-info_value">
+              <%= (@customer.posts.sum { |post| (post.return_date - post.departure_date).to_i + 1 }).to_s %>
+            </p>
+            <p class="travel-info_label">累計旅行日数</p>
+          </div>
+        </div>
+      </div>
+      <div class="card shadow-lg px-3 py-3">
+        <h4 class="text-center">地図</h4>
+        <div id="region-div"></div>
+      </div>
+      <div class="card shadow-lg px-3 py-3">
+        <h4 class="text-center">年別旅行日数</h4>
+        <%= column_chart([
+          ['13年', @customer.posts.count { |post| post.departure_date.year == 2013 }],
+          ['14年', @customer.posts.count { |post| post.departure_date.year == 2014 }],
+          ['15年', @customer.posts.count { |post| post.departure_date.year == 2015 }],
+          ['16年', @customer.posts.count { |post| post.departure_date.year == 2016 }],
+          ['17年', @customer.posts.count { |post| post.departure_date.year == 2017 }],
+          ['18年', @customer.posts.count { |post| post.departure_date.year == 2018 }],
+          ['19年', @customer.posts.count { |post| post.departure_date.year == 2019 }],
+          ['20年', @customer.posts.count { |post| post.departure_date.year == 2020 }],
+          ['21年', @customer.posts.count { |post| post.departure_date.year == 2021 }],
+          ['22年', @customer.posts.count { |post| post.departure_date.year == 2022 }],
+          ['23年', @customer.posts.count { |post| post.departure_date.year == 2023 }]
+        ], colors: ['#4A90E2'] ) %>
+      </div>
+      <div class="card shadow-lg px-3 py-3">
+        <h4 class="text-center">月別旅行日数</h4>
+        <%= column_chart([
+          ['12月', @customer.posts.count { |post| post.departure_date.month == 12 }],
+          ['1月', @customer.posts.count { |post| post.departure_date.month == 1 }],
+          ['2月', @customer.posts.count { |post| post.departure_date.month == 2 }],
+          ['3月', @customer.posts.count { |post| post.departure_date.month == 3 }],
+          ['4月', @customer.posts.count { |post| post.departure_date.month == 4 }],
+          ['5月', @customer.posts.count { |post| post.departure_date.month == 5 }],
+          ['6月', @customer.posts.count { |post| post.departure_date.month == 6 }],
+          ['7月', @customer.posts.count { |post| post.departure_date.month == 7 }],
+          ['8月', @customer.posts.count { |post| post.departure_date.month == 8 }],
+          ['9月', @customer.posts.count { |post| post.departure_date.month == 9 }],
+          ['10月', @customer.posts.count { |post| post.departure_date.month == 10 }],
+          ['11月', @customer.posts.count { |post| post.departure_date.month == 11 }]
+        ], colors: ['#4A90E2'] ) %>
       </div>
     </div>
   </div>
 </div>
+
+<style>
+  .travel-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .travel-info_item {
+    flex: 0 0 48%;
+    text-align: center;
+  }
+
+  .travel-info_item-trips {
+    border-right: none;
+  }
+
+  .travel-info_item-total-days {
+    border-left: none;
+  }
+
+  .travel-info_value {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+</style>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&callback=initMap" async defer></script>
+<script>
+  function initMap() {
+    google.charts.load('current', {
+      'packages': ['geochart']
+    });
+    google.charts.setOnLoadCallback(drawMap);
+  }
+
+  function drawMap() {
+    var postPrefectures = {
+      hokkaido: <%= Post.hokkaido.where(customer_id: current_customer.id).count %>,
+      aomori: <%= Post.aomori.where(customer_id: current_customer.id).count %>,
+      iwate: <%= Post.iwate.where(customer_id: current_customer.id).count %>,
+      miyagi: <%= Post.miyagi.where(customer_id: current_customer.id).count %>,
+      akita: <%= Post.akita.where(customer_id: current_customer.id).count %>,
+      yamagata: <%= Post.yamagata.where(customer_id: current_customer.id).count %>,
+      fukushima: <%= Post.fukushima.where(customer_id: current_customer.id).count %>,
+      ibaraki: <%= Post.ibaraki.where(customer_id: current_customer.id).count %>,
+      tochigi: <%= Post.tochigi.where(customer_id: current_customer.id).count %>,
+      gunma: <%= Post.gunma.where(customer_id: current_customer.id).count %>,
+      saitama: <%= Post.saitama.where(customer_id: current_customer.id).count %>,
+      chiba: <%= Post.chiba.where(customer_id: current_customer.id).count %>,
+      tokyo: <%= Post.tokyo.where(customer_id: current_customer.id).count %>,
+      kanagawa: <%= Post.kanagawa.where(customer_id: current_customer.id).count %>,
+      niigata: <%= Post.niigata.where(customer_id: current_customer.id).count %>,
+      toyama: <%= Post.toyama.where(customer_id: current_customer.id).count %>,
+      ishikawa: <%= Post.ishikawa.where(customer_id: current_customer.id).count %>,
+      fukui: <%= Post.fukui.where(customer_id: current_customer.id).count %>,
+      yamanashi: <%= Post.yamanashi.where(customer_id: current_customer.id).count %>,
+      nagano: <%= Post.nagano.where(customer_id: current_customer.id).count %>,
+      gifu: <%= Post.gifu.where(customer_id: current_customer.id).count %>,
+      shizuoka: <%= Post.shizuoka.where(customer_id: current_customer.id).count %>,
+      aichi: <%= Post.aichi.where(customer_id: current_customer.id).count %>,
+      mie: <%= Post.mie.where(customer_id: current_customer.id).count %>,
+      shiga: <%= Post.shiga.where(customer_id: current_customer.id).count %>,
+      kyoto: <%= Post.kyoto.where(customer_id: current_customer.id).count %>,
+      osaka: <%= Post.osaka.where(customer_id: current_customer.id).count %>,
+      hyogo: <%= Post.hyogo.where(customer_id: current_customer.id).count %>,
+      nara: <%= Post.nara.where(customer_id: current_customer.id).count %>,
+      wakayama: <%= Post.wakayama.where(customer_id: current_customer.id).count %>,
+      tottori: <%= Post.tottori.where(customer_id: current_customer.id).count %>,
+      shimane: <%= Post.shimane.where(customer_id: current_customer.id).count %>,
+      okayama: <%= Post.okayama.where(customer_id: current_customer.id).count %>,
+      hiroshima: <%= Post.hiroshima.where(customer_id: current_customer.id).count %>,
+      yamaguchi: <%= Post.yamaguchi.where(customer_id: current_customer.id).count %>,
+      tokushima: <%= Post.tokushima.where(customer_id: current_customer.id).count %>,
+      kagawa: <%= Post.kagawa.where(customer_id: current_customer.id).count %>,
+      ehime: <%= Post.ehime.where(customer_id: current_customer.id).count %>,
+      kochi: <%= Post.kochi.where(customer_id: current_customer.id).count %>,
+      fukuoka: <%= Post.fukuoka.where(customer_id: current_customer.id).count %>,
+      saga: <%= Post.saga.where(customer_id: current_customer.id).count %>,
+      nagasaki: <%= Post.nagasaki.where(customer_id: current_customer.id).count %>,
+      kumamoto: <%= Post.kumamoto.where(customer_id: current_customer.id).count %>,
+      oita: <%= Post.oita.where(customer_id: current_customer.id).count %>,
+      miyazaki: <%= Post.miyazaki.where(customer_id: current_customer.id).count %>,
+      kagoshima: <%= Post.kagoshima.where(customer_id: current_customer.id).count %>,
+      okinawa: <%= Post.okinawa.where(customer_id: current_customer.id).count %>
+    };
+
+    console.log()
+    var data = [
+      ['都道府県', '旅行した回数'],
+      ['北海道', postPrefectures.hokkaido],
+      ['青森', postPrefectures.aomori],
+      ['岩手', postPrefectures.iwate],
+      ['宮城', postPrefectures.miyagi],
+      ['秋田', postPrefectures.akita],
+      ['山形', postPrefectures.yamagata],
+      ['福島', postPrefectures.fukushima],
+      ['茨城', postPrefectures.ibaraki],
+      ['栃木', postPrefectures.tochigi],
+      ['群馬', postPrefectures.gunma],
+      ['埼玉', postPrefectures.saitama],
+      ['千葉', postPrefectures.chiba],
+      ['東京', postPrefectures.tokyo],
+      ['神奈川', postPrefectures.kanagawa],
+      ['新潟', postPrefectures.niigata],
+      ['富山', postPrefectures.toyama],
+      ['石川', postPrefectures.ishikawa],
+      ['福井', postPrefectures.fukui],
+      ['山梨', postPrefectures.yamanashi],
+      ['長野', postPrefectures.nagano],
+      ['岐阜', postPrefectures.gifu],
+      ['静岡', postPrefectures.shizuoka],
+      ['愛知', postPrefectures.aichi],
+      ['三重', postPrefectures.mie],
+      ['滋賀', postPrefectures.shiga],
+      ['京都', postPrefectures.kyoto],
+      ['大阪', postPrefectures.osaka],
+      ['兵庫', postPrefectures.hyogo],
+      ['奈良', postPrefectures.nara],
+      ['和歌山', postPrefectures.wakayama],
+      ['鳥取', postPrefectures.tottori],
+      ['島根', postPrefectures.shimane],
+      ['岡山', postPrefectures.okayama],
+      ['広島', postPrefectures.hiroshima],
+      ['山口', postPrefectures.yamaguchi],
+      ['徳島', postPrefectures.tokushima],
+      ['香川', postPrefectures.kagawa],
+      ['愛媛', postPrefectures.ehime],
+      ['高知', postPrefectures.kochi],
+      ['福岡', postPrefectures.fukuoka],
+      ['佐賀', postPrefectures.saga],
+      ['長崎', postPrefectures.nagasaki],
+      ['熊本', postPrefectures.kumamoto],
+      ['大分', postPrefectures.oita],
+      ['宮崎', postPrefectures.miyazaki],
+      ['鹿児島', postPrefectures.kagoshima],
+      ['沖縄', postPrefectures.okinawa]
+    ];
+
+    var dt = google.visualization.arrayToDataTable(data);
+    var options = {
+      region: 'JP',
+      displayMode: 'regions',
+      backgroundColor: '#ebf7fe',
+      resolution: 'provinces',
+      colors: ['white', 'green']
+    };
+
+    var chart = new google.visualization.GeoChart(document.getElementById('region-div'));
+    chart.draw(dt, options);
+  }
+</script>

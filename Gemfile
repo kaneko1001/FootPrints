@@ -58,7 +58,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'devise-i18n'
 gem 'kaminari','~> 1.2.1'
-gem 'faker'
+gem 'chartkick'
+
 gem 'exifr'
 gem 'dotenv-rails'
 group :production do
@@ -68,3 +69,4 @@ end
 gem "net-smtp"
 gem "net-pop"
 gem "net-imap"
+

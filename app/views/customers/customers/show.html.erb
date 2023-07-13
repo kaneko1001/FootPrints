@@ -12,24 +12,24 @@
             <div class="col-12 col-sm-6 col-md-8">
               <h3 class="mb-4 customer-name"><%= @customer.name %></h3>
               <div class="travel-info">
-                <div class="travel-info__item travel-info__item--followers">
-                  <p class="travel-info__value">
+                <div class="travel-info_item travel-info_item-followers">
+                  <p class="travel-info_value">
                     <%= link_to customer_followers_path(@customer) do %>
                       <%= @customer.followers.count %>
                     <% end %>
                   </p>
-                  <p class="travel-info__label">フォロワー</p>
+                  <p class="travel-info_label">フォロワー</p>
                 </div>
-                <div class="travel-info__item travel-info__item--followings">
-                  <p class="travel-info__value">
+                <div class="travel-info_item travel-info_item-followings">
+                  <p class="travel-info_value">
                     <%= link_to customer_followings_path(@customer) do %>
                       <%= @customer.followings.count %>
                     <% end %>
                   </p>
-                  <p class="travel-info__label">フォロー中</p>
+                  <p class="travel-info_label">フォロー中</p>
                 </div>
-                <div class="travel-info__item travel-info__item--trips">
-                  <p class="travel-info__value">
+                <div class="travel-info_item travel-info_item-trips">
+                  <p class="travel-info_value">
                     <% if current_customer == @customer %>
                       <%= link_to customer_report_path do %>
                         <%= @customer.posts.count %>
@@ -38,10 +38,10 @@
                       <%= @customer.posts.count %>
                     <% end %>
                   </p>
-                  <p class="travel-info__label">旅行</p>
+                  <p class="travel-info_label">旅行</p>
                 </div>
-                <div class="travel-info__item travel-info__item--total-days">
-                  <p class="travel-info__value">
+                <div class="travel-info_item travel-info_item-total-days">
+                  <p class="travel-info_value">
                     <% if current_customer == @customer %>
                       <%= link_to customer_report_path do %>
                         <%= (@customer.posts.sum { |post| (post.return_date - post.departure_date).to_i + 1 }).to_s %>
@@ -50,7 +50,7 @@
                       <%= (@customer.posts.sum { |post| (post.return_date - post.departure_date).to_i + 1 }).to_s %>
                     <% end %>
                   </p>
-                  <p class="travel-info__label">累計旅行日数</p>
+                  <p class="travel-info_label">累計旅行日数</p>
                 </div>
               </div>
             </div>
@@ -74,27 +74,27 @@
     margin-bottom: 20px;
   }
 
-  .travel-info__item {
+  .travel-info_item {
     flex: 0 0 25%;
     text-align: center;
   }
 
-  .travel-info__value {
+  .travel-info_value {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 5px;
   }
 
-  .travel-info__label {
+  .travel-info_label {
     font-size: 14px;
     color: #888;
   }
 
-  .travel-info__item--trips {
+  .travel-info_item-trips {
     border-right: 1px solid #888;
   }
 
-  .travel-info__item--total-days {
+  .travel-info_item-total-days {
     border-left: 1px solid #888;
   }
 

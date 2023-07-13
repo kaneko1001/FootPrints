@@ -23,7 +23,7 @@ class Customers::CustomersController < ApplicationController
   end
 
   def report
-
+    @customer = Customer.find(params[:id])
   end
 
   def edit
