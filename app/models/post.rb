@@ -91,6 +91,7 @@ class Post < ApplicationRecord
     search_for(content)
   end
 
+  
   enum prefecture: {
     hokkaido: 1,
     aomori: 2,

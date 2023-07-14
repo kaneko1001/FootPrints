@@ -29,7 +29,7 @@
       <%= f.label :prefecture, "旅行した県" %>
       <span class="any">任意</span>
       <%= f.select :prefecture, options_for_select(Post.prefecture_options_for_select.map { |key, value| [I18n.t("activerecord.attributes.post.prefecture.#{key}"), value] }, f.object.prefecture), { include_blank: '都道府県を選択してください' }, class: "form-control" %>
-      <p class="text-muted">選択すると旅行レポートの地図に反映されます。</p>
+      <p class="text-muted">選択すると旅行レポートの旅行マップに反映されます。</p>
     </div>
     <div class="form-group">
       <%= f.label "写真を投稿" %>
