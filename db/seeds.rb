@@ -41,7 +41,8 @@ Post.create!(
       departure_date: Date.new(2023, 6, 25),
       return_date: Date.new(2023, 6, 30),
       content: 'わんこそばを食べました',
-      customer_id: customers[0].id
+      customer_id: customers[0].id,
+      prefecture: :iwate
     },
 
     {
@@ -59,7 +60,8 @@ Post.create!(
       departure_date: Date.new(2023, 5, 25),
       return_date: Date.new(2023, 6, 10),
       content: '北海道に行ってきました！とてもきれいでした。',
-      customer_id: customers[1].id
+      customer_id: customers[1].id,
+      prefecture: :hokkaido
     },
 
     {
@@ -73,7 +75,8 @@ Post.create!(
       departure_date: Date.new(2023, 6, 10),
       return_date: Date.new(2023, 6, 10),
       content: '日帰りで、横浜赤レンガ倉庫に行ってきました。ライトアップされていてとてもきれいでした',
-      customer_id: customers[2].id
+      customer_id: customers[2].id,
+      prefecture: :kanagawa
     }
   ]
 )
