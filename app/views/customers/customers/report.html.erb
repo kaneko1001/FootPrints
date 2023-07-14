@@ -1,28 +1,24 @@
 <div class="container px-5 px-sm-0">
   <div class="row">
-    <div class="col-lg-9 mx-auto">
+    <div class="col-lg-9 col-md-12 mx-auto">
       <div class="card shadow-lg px-3 py-3">
         <h2 class="text-center">トラベルレポート</h2>
       </div>
       <div class="card shadow-lg px-3 py-3">
         <div class="travel-info">
           <div class="travel-info_item travel-info_item-trips">
-            <p class="travel-info_value">
-              <%= @customer.posts.count %>
-            </p>
+            <p class="travel-info_value"><%= @customer.posts.count %></p>
             <p class="travel-info_label">旅行</p>
           </div>
           <div class="travel-info_item travel-info_item-total-days">
-            <p class="travel-info_value">
-              <%= (@customer.posts.sum { |post| (post.return_date - post.departure_date).to_i + 1 }).to_s %>
-            </p>
+            <p class="travel-info_value"><%= (@customer.posts.sum { |post| (post.return_date - post.departure_date).to_i + 1 }).to_s %></p>
             <p class="travel-info_label">累計旅行日数</p>
           </div>
         </div>
       </div>
       <div class="card shadow-lg px-3 py-3">
-        <h4 class="text-center">地図</h4>
-        <div id="region-div"></div>
+        <h4 class="text-center">旅行マップ</h4>
+        <div id="region-div" style="width: 100%; max-width: 100%; height: 400px; overflow: hidden;"></div>
       </div>
       <div class="card shadow-lg px-3 py-3">
         <h4 class="text-center">年別旅行日数</h4>
@@ -38,7 +34,7 @@
           ['21年', @customer.posts.count { |post| post.departure_date.year == 2021 }],
           ['22年', @customer.posts.count { |post| post.departure_date.year == 2022 }],
           ['23年', @customer.posts.count { |post| post.departure_date.year == 2023 }]
-        ], colors: ['#4A90E2'] ) %>
+        ], colors: ['#4A90E2']) %>
       </div>
       <div class="card shadow-lg px-3 py-3">
         <h4 class="text-center">月別旅行日数</h4>
@@ -55,7 +51,7 @@
           ['9月', @customer.posts.count { |post| post.departure_date.month == 9 }],
           ['10月', @customer.posts.count { |post| post.departure_date.month == 10 }],
           ['11月', @customer.posts.count { |post| post.departure_date.month == 11 }]
-        ], colors: ['#4A90E2'] ) %>
+        ], colors: ['#4A90E2']) %>
       </div>
     </div>
   </div>
@@ -148,7 +144,6 @@
       okinawa: <%= Post.okinawa.where(customer_id: current_customer.id).count %>
     };
 
-    console.log()
     var data = [
       ['都道府県', '旅行した回数'],
       ['北海道', postPrefectures.hokkaido],
@@ -206,7 +201,13 @@
       displayMode: 'regions',
       backgroundColor: '#ebf7fe',
       resolution: 'provinces',
-      colors: ['white', 'green']
+      colors: ['white', 'green'],
+      chartArea: {
+        left: 10,
+        top: 10,
+        width: '100%',
+        height: '80%'
+      }
     };
 
     var chart = new google.visualization.GeoChart(document.getElementById('region-div'));

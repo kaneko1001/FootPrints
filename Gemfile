@@ -59,6 +59,7 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'kaminari','~> 1.2.1'
 gem 'chartkick'
+gem 'enum_help'
 
 gem 'exifr'
 gem 'dotenv-rails'
