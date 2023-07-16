@@ -33,6 +33,9 @@
                 <% end %>
               </div>
             </div>
+            <div class="card shadow-lg px-3 py-3 w-100">
+              <p><%= @post.content %></p>
+            </div>
           </div>
         </div>
       </div>
@@ -56,44 +59,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  .card {
-    border-radius: 8px;
-    border: none;
-  }
-
-  .card-body {
-    padding: 20px;
-  }
-
-  .card h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-  }
-
-  .card h5 {
-    margin-bottom: 10px;
-  }
-
-  .card p {
-    margin-bottom: 10px;
-  }
-
-  .rounded-circle {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-
-  .btn-group {
-    margin-top: 10px;
-  }
-
-  .img-fluid {
-    width: 100%;
-    height: auto;
-  }
-
-</style>
