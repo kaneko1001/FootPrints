@@ -32,6 +32,21 @@
  -   インフラ構成図</br>
      ![PF_FootPrints_AWS構成図](https://user-images.githubusercontent.com/127648417/253867049-8fa7c909-7235-4c4b-93c7-360761237601.png)
 
+## 機能
+ - ゲストログイン機能
+ - 管理者機能（不適切な投稿、コメントの削除、ユーザーの退会処理）</br>
+    管理者用email: admin@example.com</br>
+    管理者用パスワード: password 
+   
+ - 投稿機能（CURD）
+ - コメント機能
+ - フォロー機能
+ - いいね機能
+ - 検索機能（ユーザー、投稿）
+ - マップ機能（地名、住所からピンを立てる、旅行を行った都道府県の塗りつぶしを行う）
+ - ソート機能（新しい順、古い順、いいね多い順、コメント多い順）
+ - 
+
 ## 開発環境
 - OS：Linux(CentOS)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
@@ -40,9 +55,10 @@
 - IDE：Cloud9
 
 ## 使用素材
-
-- 使用を検討中
-
-<!--外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。-->
-<!--- 使用しない場合は、使用素材の項目をREADMEから削除してください。-->
+* テストデータ
+  - ユーザープロフィール 
+    - [Icon rainbow](https://icon-rainbow.com/)
+  - 投稿写真
+    - [ROOM](https://photo-room.net/)
+    - [Photock](https://www.photock.jp/)
 
