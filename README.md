@@ -29,6 +29,8 @@
 ## 設計書
 
  -   [ER図](https://drive.google.com/file/d/1MKQQUDOtZAFHfhOoX8JJ3v3_6cGio25k/view)
+ -   インフラ構成図
+     https://github.com/kaneko1001/FootPrints/issues/1#issue-1807079115
 
 ## 開発環境
 - OS：Linux(CentOS)
