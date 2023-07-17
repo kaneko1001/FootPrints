@@ -29,7 +29,8 @@
 ## 設計書
 
  -   [ER図](https://drive.google.com/file/d/1MKQQUDOtZAFHfhOoX8JJ3v3_6cGio25k/view)
- -   インフラ構成図  ![PF_FootPrints_AWS構成図](https://user-images.githubusercontent.com/127648417/253867049-8fa7c909-7235-4c4b-93c7-360761237601.png)
+ -   インフラ構成図
+ -   ![PF_FootPrints_AWS構成図](https://user-images.githubusercontent.com/127648417/253867049-8fa7c909-7235-4c4b-93c7-360761237601.png)
 
 ## 開発環境
 - OS：Linux(CentOS)
